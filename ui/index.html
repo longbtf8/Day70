@@ -1,26 +1,74 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Test API sản phẩm & gallery</title>
   </head>
   <body>
-    <!-- <form
-        action="http://localhost:3000/upload-file"
-        method="post"
-        enctype="multipart/form-data"
-      >
-        <input type="file" name="avatar" multiple />
-        <button type="submit">Upload</button>
-      </form> -->
+    <!-- PHẦN 1: Tạo sản phẩm mới (single image) -->
+    <h2>📦 1. Tạo sản phẩm mới (single image)</h2>
     <form
-      action="http://localhost:3000/upload-file-cloud"
+      action="http://localhost:3000/api/products"
       method="post"
       enctype="multipart/form-data"
     >
-      <input type="file" name="avatar" />
-      <button type="submit">Upload cloud</button>
+      <p>
+        <label>Ảnh sản phẩm (field: <strong>image</strong>):</label><br />
+        <input type="file" name="products" accept="image/*" required />
+      </p>
+      <p>
+        <label>Tên sản phẩm (name):</label><br />
+        <input type="text" name="name" value="Áo thun basic" />
+      </p>
+      <p>
+        <label>Giá (price):</label><br />
+        <input type="number" name="price" value="150000" />
+      </p>
+      <p>
+        <label>Tồn kho (stock):</label><br />
+        <input type="number" name="stock" value="50" />
+      </p>
+      <p>
+        <label>Mô tả (description):</label><br />
+        <textarea name="description">Áo thun cotton 100%</textarea>
+      </p>
+      <button type="submit">Tạo sản phẩm</button>
     </form>
+
+    <hr />
+
+    <!-- PHẦN 2: Upload nhiều ảnh gallery (tối đa 5 ảnh) -->
+    <h2>🖼️ 2. Upload gallery (tối đa 5 ảnh)</h2>
+    <form
+      action="http://localhost:3000/api/products/gallery"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <p>
+        <label
+          >Chọn ảnh (field: <strong>images</strong>, có thể chọn nhiều):</label
+        ><br />
+        <input type="file" name="products" accept="image/*" multiple required />
+      </p>
+      <p>
+        <em
+          >📌 Lưu ý: Tối đa 5 ảnh cùng lúc (middleware:
+          uploadCloud.array("images", 5))</em
+        >
+      </p>
+      <button type="submit">Upload gallery</button>
+    </form>
+
+    <hr />
+    <p>
+      <strong>Thông tin:</strong><br />
+      - Endpoint tạo sản phẩm: <code>POST /api/products</code> (middleware:
+      uploadCloud.single("image") → validate → handler)<br />
+      - Endpoint upload gallery:
+      <code>POST /products/gallery</code> (middleware:
+      uploadCloud.array("images", 5))<br />
+      - Nếu không chọn file nào ở gallery → server trả về 400: "Vui lòng chọn ít
+      nhất 1 ảnh"
+    </p>
   </body>
 </html>

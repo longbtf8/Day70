@@ -4,9 +4,10 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "multer": "^2.1.1",
-    "multer-storage-cloudinary": "^4.0.0"
+    "multer-storage-cloudinary": "^4.0.0",
+    "zod": "^4.4.3"
   },
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node --watch server.js"
   }
 }
